@@ -1,0 +1,452 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us — EventOps AI{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* ---- Hero Banner ---- */
+    .contact-hero {
+        background: linear-gradient(135deg, #0a0e27 0%, #1a0533 35%, #2d0b6b 65%, #4a0080 100%);
+        padding: 5rem 2rem;
+        text-align: center;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        margin: -1.5rem -12px 0 -12px;
+    }
+    /* Floating neon orb 1 */
+    .contact-hero::before {
+        content: '';
+        position: absolute;
+        top: -40%;
+        left: -10%;
+        width: 55%;
+        height: 200%;
+        background: radial-gradient(ellipse, rgba(102,16,242,0.35) 0%, transparent 70%);
+        animation: heroOrb1 18s ease-in-out infinite alternate;
+        pointer-events: none;
+    }
+    /* Floating neon orb 2 */
+    .contact-hero::after {
+        content: '';
+        position: absolute;
+        bottom: -50%;
+        right: -10%;
+        width: 55%;
+        height: 200%;
+        background: radial-gradient(ellipse, rgba(13,110,253,0.3) 0%, transparent 70%);
+        animation: heroOrb2 22s ease-in-out infinite alternate;
+        pointer-events: none;
+    }
+    @keyframes heroOrb1 {
+        from { transform: translateY(0) scale(1); }
+        to   { transform: translateY(30px) scale(1.1); }
+    }
+    @keyframes heroOrb2 {
+        from { transform: translateY(0) scale(1.1); }
+        to   { transform: translateY(-30px) scale(1); }
+    }
+    .contact-hero h1 {
+        font-size: 2.8rem;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        text-shadow: 0 0 30px rgba(102,16,242,0.6), 0 3px 12px rgba(0,0,0,0.4);
+        position: relative;
+        z-index: 2;
+    }
+    .contact-hero p {
+        font-size: 1.1rem;
+        opacity: 0.85;
+        max-width: 560px;
+        margin: 0.75rem auto 0;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* ---- Page body ---- */
+    .contact-body {
+        padding: 3rem 0;
+        background: linear-gradient(160deg, #0f1124 0%, #13072e 40%, #0a0e27 100%);
+        min-height: 70vh;
+        margin: 0 -12px;
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    /* ---- Section headings ---- */
+    .section-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #e8e8ff;
+        margin-bottom: 0.3rem;
+    }
+    .section-sub {
+        font-size: 0.9rem;
+        color: rgba(200,200,255,0.55);
+        margin-bottom: 1.8rem;
+    }
+
+    /* ---- Form card (glassmorphism) ---- */
+    .form-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 1.5rem;
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5),
+                    inset 0 1px 0 rgba(255,255,255,0.1);
+        padding: 2.2rem 2rem;
+    }
+    .form-card .form-label {
+        font-weight: 600;
+        font-size: 0.88rem;
+        color: rgba(220, 220, 255, 0.9);
+        margin-bottom: 0.4rem;
+    }
+    .form-card .form-control {
+        border: 1.5px solid rgba(255, 255, 255, 0.12);
+        border-radius: 0.75rem;
+        background: rgba(255, 255, 255, 0.07);
+        color: #e8e8ff;
+        font-size: 0.95rem;
+        transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+        padding: 0.65rem 1rem;
+    }
+    .form-card .form-control:focus {
+        border-color: rgba(102, 16, 242, 0.8);
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 0 0.22rem rgba(102, 16, 242, 0.25);
+        color: #fff;
+        outline: none;
+    }
+    .form-card .form-control::placeholder {
+        color: rgba(200, 200, 255, 0.35);
+        font-size: 0.9rem;
+    }
+    textarea.form-control {
+        resize: vertical;
+        min-height: 150px;
+    }
+
+    /* ---- Send button ---- */
+    .btn-send {
+        width: 100%;
+        padding: 0.85rem;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 1rem;
+        letter-spacing: 0.4px;
+        background: linear-gradient(135deg, #0d6efd, #6610f2);
+        border: none;
+        color: #fff;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        margin-top: 0.5rem;
+    }
+    .btn-send:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(13, 110, 253, 0.35);
+        color: #fff;
+    }
+    .btn-send:active {
+        transform: translateY(0);
+    }
+
+    /* ---- Info card (glassmorphism) ---- */
+    .info-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 1.5rem;
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5),
+                    inset 0 1px 0 rgba(255,255,255,0.1);
+        padding: 2.2rem 2rem;
+        height: 100%;
+    }
+    .info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.6rem;
+    }
+    .info-item:last-child {
+        margin-bottom: 0;
+    }
+    .info-icon-wrap {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.15rem;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+    .info-icon-wrap.blue   { background: rgba(13,110,253,0.2);  color: #6ea8fe; }
+    .info-icon-wrap.purple { background: rgba(102,16,242,0.2);  color: #c09bff; }
+    .info-icon-wrap.green  { background: rgba(25,135,84,0.2);   color: #75d9a4; }
+    .info-icon-wrap.orange { background: rgba(253,126,20,0.2);  color: #ffb46e; }
+
+    .info-label {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: rgba(220, 220, 255, 0.95);
+        margin-bottom: 0.1rem;
+    }
+    .info-value {
+        font-size: 0.88rem;
+        color: rgba(200, 200, 255, 0.55);
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    /* ---- Divider ---- */
+    .info-divider {
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin: 1.6rem 0;
+    }
+
+    /* ---- Follow Us ---- */
+    .follow-title {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: rgba(220, 220, 255, 0.95);
+        margin-bottom: 1rem;
+    }
+    .social-links {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+    }
+    .social-btn {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        text-decoration: none;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        color: #fff;
+    }
+    .social-btn:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+        color: #fff;
+    }
+    .social-btn.twitter   { background: #1da1f2; }
+    .social-btn.linkedin  { background: #0a66c2; }
+    .social-btn.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+    .social-btn.github    { background: #24292e; }
+    .social-btn.youtube   { background: #ff0000; }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 768px) {
+        .contact-hero { padding: 3rem 1.2rem; }
+        .contact-hero h1 { font-size: 2rem; }
+        .form-card, .info-card { padding: 1.6rem 1.2rem; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- ===== Hero Banner ===== -->
+<div class="contact-hero">
+    <div style="position:relative; z-index:1;">
+        <h1><i class="bi bi-chat-dots-fill me-2"></i>Contact Us</h1>
+        <p>We'd love to hear from you. Drop us a message and our team will get back to you as soon as possible.</p>
+    </div>
+</div>
+
+<!-- ===== Main Content ===== -->
+<div class="contact-body">
+    <div class="row g-4">
+
+        <!-- ===== LEFT: Contact Form ===== -->
+        <div class="col-lg-7">
+            <div class="form-card">
+                <h2 class="section-title">
+                    <i class="bi bi-send-fill text-primary me-2"></i>Send a Message
+                </h2>
+                <p class="section-sub">Fill in the form below and we'll respond within 24 hours.</p>
+
+                <form method="POST" action="{{ url_for('contact') }}" id="contactForm" novalidate>
+                    <!-- Name + Email row -->
+                    <div class="row g-3 mb-3">
+                        <div class="col-sm-6">
+                            <label for="name" class="form-label">Full Name <span class="text-danger">*</span></label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="name"
+                                name="name"
+                                placeholder="Your name"
+                                required
+                                autocomplete="name"
+                            >
+                            <div class="invalid-feedback">Please enter your full name.</div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                            <input
+                                type="email"
+                                class="form-control"
+                                id="email"
+                                name="email"
+                                placeholder="you@example.com"
+                                required
+                                autocomplete="email"
+                                {% if current_user.is_authenticated %}value="{{ current_user.email }}"{% endif %}
+                            >
+                            <div class="invalid-feedback">Please enter a valid email address.</div>
+                        </div>
+                    </div>
+
+                    <!-- Subject -->
+                    <div class="mb-3">
+                        <label for="subject" class="form-label">Subject</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="subject"
+                            name="subject"
+                            placeholder="How can we help?"
+                        >
+                    </div>
+
+                    <!-- Message -->
+                    <div class="mb-4">
+                        <label for="message" class="form-label">Message <span class="text-danger">*</span></label>
+                        <textarea
+                            class="form-control"
+                            id="message"
+                            name="message"
+                            rows="6"
+                            placeholder="Write your message here..."
+                            required
+                        ></textarea>
+                        <div class="invalid-feedback">Please write your message.</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-send" id="sendBtn">
+                        <i class="bi bi-send me-2"></i>Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ===== RIGHT: Get in Touch ===== -->
+        <div class="col-lg-5">
+            <div class="info-card">
+                <h2 class="section-title">
+                    <i class="bi bi-info-circle-fill text-primary me-2"></i>Get in Touch
+                </h2>
+                <p class="section-sub">Reach out through any of the channels below.</p>
+
+                <!-- Address -->
+                <div class="info-item">
+                    <div class="info-icon-wrap blue">
+                        <i class="bi bi-geo-alt-fill"></i>
+                    </div>
+                    <div>
+                        <p class="info-label">Address</p>
+                        <p class="info-value">123 AI Boulevard<br>San Francisco, CA 94105</p>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="info-item">
+                    <div class="info-icon-wrap purple">
+                        <i class="bi bi-envelope-fill"></i>
+                    </div>
+                    <div>
+                        <p class="info-label">Email</p>
+                        <p class="info-value">
+                            <a href="mailto:support@eventops.ai" style="color:rgba(200,200,255,0.55); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#c09bff'" onmouseout="this.style.color='rgba(200,200,255,0.55)'">
+                                support@eventops.ai
+                            </a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Phone -->
+                <div class="info-item">
+                    <div class="info-icon-wrap green">
+                        <i class="bi bi-telephone-fill"></i>
+                    </div>
+                    <div>
+                        <p class="info-label">Phone</p>
+                        <p class="info-value">
+                            <a href="tel:+18001234567" style="color:rgba(200,200,255,0.55); text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#75d9a4'" onmouseout="this.style.color='rgba(200,200,255,0.55)'">
+                                +1 (800) 123-4567
+                            </a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Business Hours -->
+                <div class="info-item">
+                    <div class="info-icon-wrap orange">
+                        <i class="bi bi-clock-fill"></i>
+                    </div>
+                    <div>
+                        <p class="info-label">Business Hours</p>
+                        <p class="info-value">Mon–Fri: 9:00 AM – 6:00 PM (PST)</p>
+                    </div>
+                </div>
+
+                <hr class="info-divider">
+
+                <!-- Follow Us -->
+                <p class="follow-title"><i class="bi bi-share-fill me-2 text-primary"></i>Follow Us</p>
+                <div class="social-links">
+                    <a href="#" class="social-btn twitter" title="Twitter / X" aria-label="Twitter">
+                        <i class="bi bi-twitter-x"></i>
+                    </a>
+                    <a href="#" class="social-btn linkedin" title="LinkedIn" aria-label="LinkedIn">
+                        <i class="bi bi-linkedin"></i>
+                    </a>
+                    <a href="#" class="social-btn instagram" title="Instagram" aria-label="Instagram">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                    <a href="#" class="social-btn github" title="GitHub" aria-label="GitHub">
+                        <i class="bi bi-github"></i>
+                    </a>
+                    <a href="#" class="social-btn youtube" title="YouTube" aria-label="YouTube">
+                        <i class="bi bi-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Client-side form validation
+    (function() {
+        'use strict';
+        const form = document.getElementById('contactForm');
+        const btn  = document.getElementById('sendBtn');
+
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            } else {
+                // Animate button on successful submit
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Sending…';
+                btn.disabled = true;
+            }
+            form.classList.add('was-validated');
+        }, false);
+    })();
+</script>
+{% endblock %}
